@@ -8,13 +8,15 @@ import org.springframework.http.HttpStatus;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
+import java.util.Optional;
 
 @RestController
 @RequestMapping("users")
 public class UserController {
     @Autowired
     private UserService userService;
-    //private UserRepository userRepository;
+    @Autowired
+    private UserRepository userRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<User> findAll() {
@@ -26,7 +28,33 @@ public class UserController {
         return userService.findById(id);
     }
 
+    @RequestMapping(method = RequestMethod.POST)
+    public void addUser(@RequestBody User user) {
+        userService.addUser(user);
+    }
 
+    @RequestMapping(value = "NameOrEmail", method = RequestMethod.GET)
+    public User findNameByNameOrEmail(@RequestParam(value = "name", required = false) String name,
+                                      @RequestParam(value = "email", required = false) String email) {
+        return userRepository.findUserByNameOrEmail(name, email);
+    }
+
+// Alternate method to search for NameOr email, in this case you need to have optional fields into the UserRepository
+//    @RequestMapping(value = "NameOrEmail", method = RequestMethod.GET)
+//    public User getNameByNameOrEmail(@RequestParam(value = "name") Optional<String> name,
+//                                     @RequestParam(value="email") Optional<String> email) {
+//        return userRepository.findUserByNameOrEmail(name, email);
+//    }
+
+//    @RequestMapping(value = "NameOrEmailWithQuery", method = RequestMethod.GET)
+//    public User abc(@RequestParam(value = "name") Optional<String> name,
+//                                         @RequestParam(value = "email") Optional<String> email) {
+//        return userRepository.abc(name, email);
+//    }
+
+
+
+// This are the GET commands when you are using directly the Repository, without the userService
 //    @GetMapping
 //    public List<User> getAll() {
 //        return userRepository.findAll();
