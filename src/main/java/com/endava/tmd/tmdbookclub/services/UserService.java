@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class UserService {
@@ -21,8 +22,11 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public User findById(Integer id) {
-        return userRepository.findById(id).orElse(null);
+//    public User findById(Integer id) {
+//        return userRepository.findById(id).orElse(null);
+//    }
+    public Optional<User> findById(Integer id) {
+        return userRepository.findById(id);
     }
 
     public void addUser(User user) {

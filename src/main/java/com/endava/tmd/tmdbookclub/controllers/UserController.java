@@ -5,6 +5,7 @@ import com.endava.tmd.tmdbookclub.repositories.UserRepository;
 import com.endava.tmd.tmdbookclub.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -23,9 +24,15 @@ public class UserController {
         return userService.findAll();
     }
 
+//    @RequestMapping(params = "id", method = RequestMethod.GET)
+//    public User getById(@RequestParam("id") Integer id) {
+//        return userService.findById(id);
+//    }
+
     @RequestMapping(params = "id", method = RequestMethod.GET)
-    public User getById(@RequestParam("id") Integer id) {
-        return userService.findById(id);
+    public Object getById(@RequestParam("id") Integer id) {
+        return userService.findById(id).isPresent()? userService.findById(id).get() :
+                new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 
     @RequestMapping(method = RequestMethod.POST)
@@ -51,7 +58,6 @@ public class UserController {
 //                                         @RequestParam(value = "email") Optional<String> email) {
 //        return userRepository.abc(name, email);
 //    }
-
 
 
 // This are the GET commands when you are using directly the Repository, without the userService
