@@ -14,6 +14,7 @@ public interface UserRepository extends JpaRepository<User, Integer> {
     //User findUserByNameOrEmail(Optional<String> name, Optional<String> email);
 
     //How to query for something that doesn't have a method
-//    @Query("select u from User u where u.name = :name or u.email = :email")
-//    User abc(Optional<String> name, Optional<String> email);
+    //@Query("select u from User u where u.name = :name or u.email = :email")
+    @Query(value = "SELECT * FROM users WHERE name = ?1", nativeQuery = true)
+    User abc(Optional<String> name, Optional<String> email);
 }

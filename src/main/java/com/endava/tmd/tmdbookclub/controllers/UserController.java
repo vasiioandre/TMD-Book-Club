@@ -53,11 +53,11 @@ public class UserController {
 //        return userRepository.findUserByNameOrEmail(name, email);
 //    }
 
-//    @RequestMapping(value = "NameOrEmailWithQuery", method = RequestMethod.GET)
-//    public User abc(@RequestParam(value = "name") Optional<String> name,
-//                                         @RequestParam(value = "email") Optional<String> email) {
-//        return userRepository.abc(name, email);
-//    }
+    @RequestMapping(value = "NameOrEmailWithQuery", method = RequestMethod.GET)
+    public User abc(@RequestParam(value = "name") Optional<String> name,
+                                         @RequestParam(value = "email") Optional<String> email) {
+        return userRepository.abc(name, email);
+    }
 
 
 // This are the GET commands when you are using directly the Repository, without the userService

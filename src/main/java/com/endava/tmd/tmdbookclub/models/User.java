@@ -18,7 +18,7 @@ public class User {
     @ManyToMany
     @JoinTable(
             name = "user_books",
-            joinColumns = @JoinColumn(name = "user_id"), //or user_id?
+            joinColumns = @JoinColumn(name = "user_id"),
             inverseJoinColumns = @JoinColumn(name = "book_id"))
     private List<Book> books;
 
