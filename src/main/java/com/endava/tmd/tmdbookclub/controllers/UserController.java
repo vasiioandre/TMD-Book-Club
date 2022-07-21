@@ -46,36 +46,9 @@ public class UserController {
         return userRepository.findUserByNameOrEmail(name, email);
     }
 
-// Alternate method to search for NameOr email, in this case you need to have optional fields into the UserRepository
-//    @RequestMapping(value = "NameOrEmail", method = RequestMethod.GET)
-//    public User getNameByNameOrEmail(@RequestParam(value = "name") Optional<String> name,
-//                                     @RequestParam(value="email") Optional<String> email) {
-//        return userRepository.findUserByNameOrEmail(name, email);
-//    }
-
     @RequestMapping(value = "NameOrEmailWithQuery", method = RequestMethod.GET)
     public User abc(@RequestParam(value = "name") Optional<String> name,
                                          @RequestParam(value = "email") Optional<String> email) {
         return userRepository.abc(name, email);
     }
-
-
-// This are the GET commands when you are using directly the Repository, without the userService
-//    @GetMapping
-//    public List<User> getAll() {
-//        return userRepository.findAll();
-//    }
-//
-//    @GetMapping
-//    @RequestMapping("{id}")
-//    public User get(@PathVariable Integer id) {
-//       return userRepository.findById(id).get();
-//    }
-//
-//    @PostMapping
-//    @ResponseStatus(HttpStatus.CREATED)
-//    public User create(@RequestBody final User user) {
-//        return userRepository.saveAndFlush(user);
-//    }
-
 }
