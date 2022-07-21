@@ -1,9 +1,8 @@
 package com.endava.tmd.tmdbookclub.models;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
+import javax.persistence.*;
 import java.util.Date;
 
 enum RentalPeriod {
@@ -13,7 +12,7 @@ enum RentalPeriod {
     MONTH_1
 }
 
-@Entity(name="rentals")
+@Entity(name = "rentals")
 public class Rental {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -21,11 +20,16 @@ public class Rental {
     private Integer user_id_renter;
     private Integer user_book_id;
     private Date rental_date;
-    //private rental_period
     private Date return_date;
+    @Enumerated(EnumType.STRING)
     private RentalPeriod rental_period;
 
-    public Rental() {}
+    @ManyToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "user_book_id", referencedColumnName = "id", insertable=false, updatable=false)
+    private UserBook user_books;
+
+    public Rental() {
+    }
 
     public Integer getId() {
         return id;
@@ -59,6 +63,14 @@ public class Rental {
         this.rental_date = rental_date;
     }
 
+    public RentalPeriod getRental_period() {
+        return rental_period;
+    }
+
+    public void setRental_period(RentalPeriod rental_period) {
+        this.rental_period = rental_period;
+    }
+
     public Date getReturn_date() {
         return return_date;
     }
@@ -67,11 +79,11 @@ public class Rental {
         this.return_date = return_date;
     }
 
-    public RentalPeriod getRental_period() {
-        return rental_period;
+    public UserBook getUser_books() {
+        return user_books;
     }
 
-    public void setRental_period(RentalPeriod rental_period) {
-        this.rental_period = rental_period;
+    public void setUser_books(UserBook user_books) {
+        this.user_books = user_books;
     }
 }
