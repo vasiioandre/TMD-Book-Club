@@ -1,7 +1,9 @@
 package com.endava.tmd.tmdbookclub.controllers;
 
 import com.endava.tmd.tmdbookclub.models.Book;
+import com.endava.tmd.tmdbookclub.models.BooksTitleAndAuthorI;
 import com.endava.tmd.tmdbookclub.models.User;
+import com.endava.tmd.tmdbookclub.repositories.BookRepository;
 import com.endava.tmd.tmdbookclub.services.BookService;
 import com.endava.tmd.tmdbookclub.services.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,8 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
+    @Autowired
+    BookRepository bookRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Book> findAll() {
@@ -31,6 +35,9 @@ public class BookController {
         return bookService.addBookToUser(bookId, userId);
     }
 
-
+    @RequestMapping(value = "title-and-author", method = RequestMethod.GET)
+    public List<BooksTitleAndAuthorI> findBooksTitleAndAuthor() {
+        return bookRepository.findBooksTitleAndAuthor();
+    }
 
 }
