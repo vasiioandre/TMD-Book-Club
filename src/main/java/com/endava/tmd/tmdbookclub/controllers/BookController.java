@@ -1,6 +1,7 @@
 package com.endava.tmd.tmdbookclub.controllers;
 
 import com.endava.tmd.tmdbookclub.models.Book;
+import com.endava.tmd.tmdbookclub.models.BooksAndOwnersI;
 import com.endava.tmd.tmdbookclub.models.BooksTitleAndAuthorI;
 import com.endava.tmd.tmdbookclub.models.User;
 import com.endava.tmd.tmdbookclub.repositories.BookRepository;
@@ -16,8 +17,6 @@ import java.util.List;
 public class BookController {
     @Autowired
     private BookService bookService;
-    @Autowired
-    BookRepository bookRepository;
 
     @RequestMapping(method = RequestMethod.GET)
     public List<Book> findAll() {
@@ -37,7 +36,16 @@ public class BookController {
 
     @RequestMapping(value = "title-and-author", method = RequestMethod.GET)
     public List<BooksTitleAndAuthorI> findBooksTitleAndAuthor() {
-        return bookRepository.findBooksTitleAndAuthor();
+        return bookService.findBooksTitleAndAuthor();
     }
 
+    @RequestMapping(value = "books-and-owners", method = RequestMethod.GET)
+    public List<BooksAndOwnersI> findBooksAndOwners() {
+        return bookService.findBooksAndOwners();
+    }
+
+    @RequestMapping(value = "books-available", method = RequestMethod.GET)
+    public List<BooksAndOwnersI> findBooksAvailableForRenting() {
+        return bookService.findBooksAvailableForRenting();
+    }
 }
